@@ -13,8 +13,8 @@ class ProductService:
     def get_all_products(self):
         return self.repository.get_all_products()
     
-    def update_product(self, product_id):
-        return self.repository.update_product(product_id)
+    def update_product(self, product_id, data):
+        return self.repository.update_product(product_id, data)
 
     def delete_product(self, product_id):
         return self.repository.delete_product(product_id)
