@@ -7,7 +7,7 @@ class ProductRepository:
         return product
     
     def get_product(self, product_id):
-        product = Product.objects.get(id=product_id).first()
+        product = Product.objects(id=product_id).first()
         return product
     
     def get_all_products(self):
@@ -15,13 +15,13 @@ class ProductRepository:
         return products
     
     def update_product(self, product_id, data):
-        product = Product.objects.get(id=product_id).first()
+        product = Product.objects(id=product_id).first()
         if product:
             product.update(**data)
         return product
 
     def delete_product(self, product_id):
-        product = Product.objects.get(id=product_id).first()
+        product = Product.objects(id=product_id).first()
         if product:
             product.delete()
         return product
