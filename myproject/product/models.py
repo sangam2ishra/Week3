@@ -1,4 +1,5 @@
 from mongoengine import *
+from django.utils import timezone
 
 
 class Product(Document):
@@ -8,7 +9,14 @@ class Product(Document):
     price = FloatField(required=True)
     brand = StringField()
     quantity = IntField()
+    created_at = DateTimeField(default=timezone.now())
+    updated_at = DateTimeField(default=timezone.now())
 
     meta = {'collection': 'products'}
+
+    def save(self, *args, **kwargs):
+        self.updated_at=timezone.now()
+        return super(Product, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.name

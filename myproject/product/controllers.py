@@ -47,10 +47,11 @@ def get_all_products(request):
 
 @csrf_exempt
 def update_product(request, product_id):
+    print(request)
     if request.method == "PUT":
         try:
             data = json.loads(request.body)
-            product = service.update_product(data, product_id)
+            product = service.update_product(product_id, data)
             if product:
                 return JsonResponse({'message': 'Product updated successfully'}, status=201)
             else:
