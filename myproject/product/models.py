@@ -9,13 +9,14 @@ class Product(Document):
     price = FloatField(required=True)
     brand = StringField()
     quantity = IntField()
-    created_at = DateTimeField(default=timezone.now())
-    updated_at = DateTimeField(default=timezone.now())
+    created_at = DateTimeField(default=timezone.localtime(timezone.now()))
+    updated_at = DateTimeField(default=timezone.localtime(timezone.now()))
 
     meta = {'collection': 'products'}
 
     def save(self, *args, **kwargs):
-        self.updated_at=timezone.now()
+        self.updated_at=timezone.localtime(timezone.now())
+        print(timezone.localtime(timezone.now()))
         return super(Product, self).save(*args, **kwargs)
 
     def __str__(self):
