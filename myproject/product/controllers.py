@@ -1,10 +1,12 @@
 import json
 from product.services import ProductService
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponseNotAllowed
+from django.views.decorators.csrf import csrf_exempt
 
 
 service = ProductService()
 
+@csrf_exempt
 def create_product(request):
     if request.method == "POST":
         try:
@@ -16,6 +18,7 @@ def create_product(request):
     return HttpResponseNotAllowed(['POST'])
 
 
+@csrf_exempt
 def get_product(request, product_id):
     if request.method == "GET":
         product = service.get_product(product_id)
@@ -29,6 +32,7 @@ def get_product(request, product_id):
     return HttpResponseNotAllowed(['GET'])
 
 
+@csrf_exempt
 def get_all_products(request):
     if request.method == "GET":
         try:
@@ -41,6 +45,7 @@ def get_all_products(request):
     return HttpResponseNotAllowed(['GET'])
 
 
+@csrf_exempt
 def update_product(request, product_id):
     if request.method == "PUT":
         try:
@@ -55,6 +60,7 @@ def update_product(request, product_id):
     return HttpResponseNotAllowed(['PUT'])
 
 
+@csrf_exempt
 def delete_product(request, product_id):
     if request.method == "DELETE":
         try:
