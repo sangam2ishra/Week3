@@ -12,9 +12,9 @@ def create_product(request):
             product = service.create_product(data)
             return JsonResponse(json.loads(product.to_json()), safe=False, status=201)
         except Exception as e:
-            return HttpResponseBadRequest(str(e))
-        
+            return HttpResponseBadRequest(str(e))        
     return HttpResponseNotAllowed(['POST'])
+
 
 def get_product(request, product_id):
     if request.method == "GET":
@@ -25,20 +25,21 @@ def get_product(request, product_id):
             else:
                 return JsonResponse({'error': 'Product Not Found'}, status=404)
         except Exception as e:
-            return HttpResponseBadRequest(str(e))
-    
+            return HttpResponseBadRequest(str(e))    
     return HttpResponseNotAllowed(['GET'])
+
 
 def get_all_products(request):
     if request.method == "GET":
         try:
             products = service.get_all_products()
-            product_list = [p.to_json() for p in products]
+            print(products)
+            product_list = [json.loads(p.to_json()) for p in products]
             return JsonResponse(product_list, safe=False, status=201)
         except Exception as e:
-            return HttpResponseBadRequest(str(e))
-    
+            return HttpResponseBadRequest(str(e))    
     return HttpResponseNotAllowed(['GET'])
+
 
 def update_product(request, product_id):
     if request.method == "PUT":
@@ -51,8 +52,8 @@ def update_product(request, product_id):
                 return JsonResponse({'error': 'Product Not Found'}, status=404)
         except Exception as e:
             return HttpResponseBadRequest(str(e))
-
     return HttpResponseNotAllowed(['PUT'])
+
 
 def delete_product(request, product_id):
     if request.method == "DELETE":
