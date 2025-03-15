@@ -9,5 +9,6 @@ class Product(Document):
     brand = StringField()
     quantity = IntField()
 
+    meta = {'collection': 'products'}
     def __str__(self):
         return self.name
